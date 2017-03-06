@@ -1,0 +1,137 @@
+<html>
+
+<head>
+
+	<meta charset = "UTF-8">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>nlp</title>
+
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans:100');
+@import url('https://fonts.googleapis.com/css?family=Emilys+Candy');
+
+::-moz-selection { background: rgba(0, 0, 0, .4); }
+::selection { background: rgba(0, 0, 0, .4); }
+
+*{
+	padding: 0;
+	margin: 0;
+	font-family: 'Alegreya Sans', sans-serif;
+	font-size: 4vw;
+}
+
+body{
+	background: deepskyblue;
+}
+
+button{
+	border: none;
+}
+
+input[type="text"]{
+	border: none;
+	color: #fff;
+	background: deepskyblue;
+	border-bottom: .2px solid #eee;
+	transition: all .4s ease-out;
+}
+
+input[type="text"]:focus{
+	border-bottom: 2px solid #ddd;
+}
+
+#container{
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	left: 5vw; 
+}
+
+#credits{
+	font-family: 'Emilys Candy', cursive;
+	font-size: .5em;
+	position: fixed;
+	bottom: 0vh;
+	background: rgba(255, 255, 255, .3);
+	width: 100%;
+	text-align: center;
+}
+
+.active{
+	animation: show .4s 1;
+	position: relative;
+}
+
+@keyframes show {
+	0%{
+		color: rgba(0, 0, 0, 0);
+		left: 20px;
+	}
+	100%{
+		color: rgba(0, 0, 0, 1);
+		left: 0px;
+	}
+}
+
+#header{
+	color: #fff;
+	background: rgba(0, 0, 0, .9);
+	width: 100%
+}
+
+.btn-src {
+	background: #e0e0e0;
+	cursor: pointer;
+}
+
+.btn-src:hover{
+	background: #eee;
+}
+
+</style>
+
+
+</head>
+
+<body oncontextmenu="return false;">
+
+	<div id = "header">NLP - Bascis</div>
+	
+	<div id = "container">
+		
+		<input type = "text" id = "inp">
+
+		<button class = "btn-src" onclick = "process()">&rarr;</button>
+
+		<div id = "out"></div>
+
+	</div>
+
+	<p id = "credits">Hand-Crafted with <span style = "color: indianred;font-size: .8em;">&hearts;</span> by Jesse</p>
+	
+<script src = "compromise.min.js"></script>
+
+<script>
+
+let out = document.querySelector(`#out`)
+let	inp = document.querySelector(`#inp`)
+let sen = inp.value
+
+const process = () => {
+	out.classList.toggle('active')
+	out.innerHTML = `
+						<b>Future Tense: </b>${nlp(sen).sentences().toFutureTense().out('text')} <br>
+						<b>Past Tense: </b>${nlp(sen).sentences().toPastTense().out('text')} <br>
+						<b>Present Tense: </b>${nlp(sen).sentences().toPresentTense().out('text')} <br>
+						<b>Persons: </b>${nlp(sen).people().sort('frequency').unique().out('array').join(', ')}<br>
+					`
+}
+
+</script>
+
+</body>
+
+</html>
