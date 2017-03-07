@@ -117,15 +117,17 @@ input[type="text"]:focus{
 <script>
 
 let out = document.querySelector(`#out`)
+let inp = document.querySelector(`#inp`)
+let sen = inp.value
 
 const process = () => {
 	out.classList.toggle('active')
-	let	inp = document.querySelector(`#inp`)
-	let sen = inp.value
 	out.innerHTML = `
-						<b>Future Tense: </b>${nlp(sen).sentences().toFutureTense().out('text')} <br>
-						<b>Past Tense: </b>${nlp(sen).sentences().toPastTense().out('text')} <br>
-						<b>Present Tense: </b>${nlp(sen).sentences().toPresentTense().out('text')} <br>
+						<b>Future Tense: </b>${nlp(sen).sentences().toFutureTense().out('html')} <br>
+						<b>Past Tense: </b>${nlp(sen).sentences().toPastTense().out('html')} <br>
+						<b>Present Tense: </b>${nlp(sen).sentences().toPresentTense().out('html')} <br>
+						<b>Negative: </b>${nlp(sen).sentences().toNegative().out('html')} <br>
+						<b>Nouns: </b>${nlp(sen).nouns().list.map(a => a.t._text).join(', ')} <br>
 						<b>Persons: </b>${nlp(sen).people().sort('frequency').unique().out('array').join(', ')}<br>
 					`
 }
